@@ -23,6 +23,7 @@ export class QRScannerComponent implements OnInit {
   private scannerEnabled: boolean = true;
   private transports: Transport[] = [];
   private information: string = "No code information detected. Zoom in on a QR code to scan.";
+  content: string;
 
   constructor(private logService: LogService, private cd: ChangeDetectorRef) { }
 
@@ -32,7 +33,8 @@ export class QRScannerComponent implements OnInit {
   public scanSuccessHandler($event: any) {
     this.scannerEnabled = false;
     this.information = "Wait retrieving information ...";
-
+    console.log($event)
+    this.content = $event
     const appointment = new Appointment($event);
     this.logService.logAppointment(appointment).subscribe(
       (result: OperationResponse) => {

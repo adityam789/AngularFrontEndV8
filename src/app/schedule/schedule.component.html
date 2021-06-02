@@ -1,0 +1,21 @@
+<p>schedule works!</p>
+<div class="col-md-8 form-group">
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <input
+      type="file"
+      class="form-control"
+      (change)="uploadedFile($event)"
+      placeholder="Upload file"
+      accept=".xlsx"
+    />
+    <button
+      mat-mini-fab
+      color="primary"
+      aria-label="Example icon button with a upload icon"
+      type = "submit"
+    >
+      <mat-icon>upload</mat-icon>
+    </button>
+  </form>
+  {{ Message }}
+</div>

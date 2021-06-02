@@ -1,4 +1,8 @@
+table {
+    width: 75%;
+}
 mat-card{
     justify-content: center;
     display: flex;
+    align-items: center;
 }

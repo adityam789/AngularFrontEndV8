@@ -1,0 +1,68 @@
+<!-- {{eventInfo[0]}}
+{{categoriesInfo[0]}} -->
+<div *ngIf="source == 'events'">
+  <div class="bruh">
+    <form id="eventsForm" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+      <p>
+        Event Type Name <br />
+        <mat-form-field
+          [hideRequiredMarker]="options.value.hideRequired"
+          [floatLabel]="options.value.floatLabel"
+        >
+          <mat-label>{{ eventInfo[0].EventTypeName }}</mat-label>
+          <input matInput formControlName="EventTypeName" required />
+        </mat-form-field>
+      </p>
+      <p>
+        Event State <br />
+        <mat-form-field [floatLabel]="options.value.floatLabel">
+          <mat-label>{{ eventInfo[0].eventState }}</mat-label>
+          <input matInput formControlName="EventState" />
+        </mat-form-field>
+      </p>
+      <p>
+        Is Deleted <br />
+        <mat-form-field
+          [floatLabel]="options.value.floatLabel"
+          hintLabel="1 to softDelete and 0 to keep"
+        >
+          <input matInput formControlName="isDeleted" />
+        </mat-form-field>
+      </p>
+      <div class="example-button-row">
+        <button
+          mat-raised-button
+          type="submit"
+          form="eventsForm"
+          color="primary"
+        >
+          SUBMIT
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="source == 'categories'">
+<div class="bruh2">
+  <form id ="categoriesForm" [formGroup]="checkoutForm2" (ngSubmit)="onSubmit2()">
+    <p>
+      Category Name <br>
+      <mat-form-field 
+        [hideRequiredMarker]="options.value.hideRequired"
+        [floatLabel]="options.value.floatLabel">
+        <mat-label>{{categoriesInfo[0].CategoryName}}</mat-label>
+        <input matInput formControlName="CategoryName" required />
+      </mat-form-field>
+    </p>
+    <p>
+      Is Deleted <br>
+      <mat-form-field [floatLabel]="options.value.floatLabel" hintLabel="1 to softDelete and 0 to keep">
+        <input matInput formControlName="isDeleted">
+      </mat-form-field>
+    </p>
+    <div class="example-button-row">
+      <button mat-raised-button type="submit" form="categoriesForm" color="primary">SUBMIT</button>
+    </div>
+  </form>
+</div>
+</div>

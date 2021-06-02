@@ -1,0 +1,205 @@
+<ng-container *ngIf="(asyncTabs | async) === null">
+  Loading tabs...
+</ng-container>
+
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab *ngFor="let tab of asyncTabs | async">
+    <ng-template mat-tab-label>{{ tab.label }}</ng-template>
+    <div *ngIf="tab.label == 'Categories'">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Categories</mat-label>
+          <input
+            #searchCat
+            type="text"
+            placeholder="Pick one"
+            aria-label="Category"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+            (ngModelChange)="modelChangeFn(searchCat.value)"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let option of filteredOptions | async"
+              [value]="option"
+            >
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+      <button
+        mat-mini-fab
+        color="primary"
+        aria-label="Example icon button with a search icon"
+        (click)="onButtonClick(searchCat.value)"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <div *ngIf="searchValue.length == 0; else elseBlock">
+        <mat-card
+          ><table mat-table [dataSource]="rawData" class="mat-elevation-z8">
+            <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+            <!-- Position Column -->
+            <ng-container matColumnDef="ID">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="CategoryName">
+              <th mat-header-cell *matHeaderCellDef>Category Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.CategoryName }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef>Edit</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  aria-label="Example icon button with a edit icon"
+                  target="_self"
+                  [routerLink]="[
+                    '/edit-page',
+                    element.CategoryName,
+                    'categories'
+                  ]"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef>Delete</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  aria-label="Example icon button with a delete icon"
+                  (click)="onButtonClickDeleteModified(element.ID)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+            ></tr></table
+        ></mat-card>
+
+        <mat-paginator
+          [length]="totalSize"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[20]"
+          (page)="pageEvent = handlePage($event)"
+        >
+        </mat-paginator>
+      </div>
+      <ng-template #elseBlock>
+        <p>
+          <mat-card
+            ><table
+              mat-table
+              [dataSource]="searchData"
+              class="mat-elevation-z8"
+            >
+              <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+              <!-- Position Column -->
+              <ng-container matColumnDef="ID">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let element">{{ element.ID }}</td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="CategoryName">
+                <th mat-header-cell *matHeaderCellDef>Category Name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.CategoryName }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>Edit</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    aria-label="Example icon button with a edit icon"
+                    target="_self"
+                    [routerLink]="[
+                      '/edit-page',
+                      element.CategoryName,
+                      'categories'
+                    ]"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>Delete</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-mini-fab
+                    color="primary"
+                    aria-label="Example icon button with a delete icon"
+                    (click)="onButtonClickDeleteModified(element.ID)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+              ></tr></table
+          ></mat-card></p
+      ></ng-template>
+    </div>
+    <div *ngIf="tab.label == 'Add'">
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Outline form field</mat-label>
+          <input #addCategory matInput placeholder="Placeholder" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <button
+          mat-mini-fab
+          color="primary"
+          aria-label="Example icon button with a add icon"
+          (click)="onButtonClickAdd(addCategory.value)"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </p>
+      {{ AddMessage }}
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Outline form field</mat-label>
+          <input #deleteCategory matInput placeholder="Placeholder" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <button
+          mat-mini-fab
+          color="primary"
+          aria-label="Example icon button with a delete icon"
+          (click)="onButtonClickDelete(deleteCategory.value)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </p>
+      {{ DeleteMessage }}
+    </div>
+    <ng-template #elseBlock
+      >Content to render when condition is false. <br />{{
+        tab.content
+      }}</ng-template
+    >
+  </mat-tab>
+</mat-tab-group>

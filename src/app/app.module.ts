@@ -28,6 +28,7 @@ import { EditPageComponent } from './edit-page/edit-page.component';
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QRScannerComponent } from './qrscanner/qrscanner.component';
+import { Scanner2Component } from './scanner2/scanner2.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { QRScannerComponent } from './qrscanner/qrscanner.component';
     ScheduleComponent,
     HomepageComponent,
     EditPageComponent,
-    QRScannerComponent
+    QRScannerComponent,
+    Scanner2Component
   ],
   imports: [
     BrowserModule,

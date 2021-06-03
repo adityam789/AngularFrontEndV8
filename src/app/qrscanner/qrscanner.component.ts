@@ -24,6 +24,8 @@ export class QRScannerComponent implements OnInit {
   private transports: Transport[] = [];
   private information: string = "No code information detected. Zoom in on a QR code to scan.";
   content: string;
+  cameras: any[];
+  selected;
 
   constructor(private logService: LogService, private cd: ChangeDetectorRef) { }
 
@@ -31,7 +33,7 @@ export class QRScannerComponent implements OnInit {
   }
 
   public camerasFoundHandler(event){
-    console.log(event)
+    this.cameras = event
   }
 
   public scanSuccessHandler($event: any) {

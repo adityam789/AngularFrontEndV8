@@ -24,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { EditPageComponent } from './edit-page/edit-page.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
@@ -62,6 +63,7 @@ import { Scanner2Component } from './scanner2/scanner2.component';
     MatInputModule,
     CommonModule,
     ZXingScannerModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

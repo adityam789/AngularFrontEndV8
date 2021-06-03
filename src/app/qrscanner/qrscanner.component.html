@@ -1,3 +1,11 @@
+<mat-form-field>
+    <mat-label>Select an option</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option *ngFor="let camera of cameras" [value]="camera">
+        {{camera.label}}    
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 <div class="row">
     <div class="col-12 col-lg-6">
         <div class="kt-portlet kt-portlet--tab">
@@ -12,7 +20,7 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <zxing-scanner *ngIf="scannerEnabled" #scanner (scanSuccess)="scanSuccessHandler($event)" (camerasFound)="camerasFoundHandler($event)">
+                <zxing-scanner *ngIf="scannerEnabled" #scanner (scanSuccess)="scanSuccessHandler($event)" (camerasFound)="camerasFoundHandler($event)"  [(device)]="selected">
                 </zxing-scanner>
                 <button (click)="enableScanner()" *ngIf="!scannerEnabled" type="button" class="btn btn-success">
                     Read Another

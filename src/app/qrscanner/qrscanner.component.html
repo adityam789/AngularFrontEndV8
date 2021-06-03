@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
-                <zxing-scanner *ngIf="scannerEnabled" #scanner (scanSuccess)="scanSuccessHandler($event)">
+                <zxing-scanner *ngIf="scannerEnabled" #scanner (scanSuccess)="scanSuccessHandler($event)" (camerasFound)="camerasFoundHandler($event)">
                 </zxing-scanner>
                 <button (click)="enableScanner()" *ngIf="!scannerEnabled" type="button" class="btn btn-success">
                     Read Another

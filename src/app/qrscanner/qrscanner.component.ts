@@ -30,6 +30,10 @@ export class QRScannerComponent implements OnInit {
   ngOnInit() {
   }
 
+  public camerasFoundHandler(event){
+    console.log(event)
+  }
+
   public scanSuccessHandler($event: any) {
     this.scannerEnabled = false;
     this.information = "Wait retrieving information ...";

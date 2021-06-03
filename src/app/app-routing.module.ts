@@ -6,6 +6,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import  { EditPageComponent } from './edit-page/edit-page.component';
 import { QRScannerComponent } from './qrscanner/qrscanner.component';
+import { Scanner2Component } from './scanner2/scanner2.component';
 
 const routes: Routes = [
   { path: "events", component: EventsComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: "schedule", component: ScheduleComponent },
   { path: "edit-page/:id/:source", component: EditPageComponent },
   { path: "QRScanner", component: QRScannerComponent },
+  { path: "Scanner2", component: Scanner2Component }
 ];
 
 @NgModule({

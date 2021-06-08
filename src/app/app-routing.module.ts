@@ -6,16 +6,20 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import  { EditPageComponent } from './edit-page/edit-page.component';
 import { QRScannerComponent } from './qrscanner/qrscanner.component';
-import { Scanner2Component } from './scanner2/scanner2.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component'
+import { AuthGuardGuard } from './auth-guard.guard';
 
 const routes: Routes = [
-  { path: "events", component: EventsComponent },
-  { path: "", component: HomepageComponent, pathMatch: "full"},
-  { path: "categories", component: CategoriesComponent },
-  { path: "schedule", component: ScheduleComponent },
-  { path: "edit-page/:id/:source", component: EditPageComponent },
-  { path: "QRScanner", component: QRScannerComponent },
-  { path: "Scanner2", component: Scanner2Component }
+  { path: "events", component: EventsComponent, canActivate : [AuthGuardGuard] },
+  { path: "home", component: HomepageComponent, pathMatch: "full", canActivate : [AuthGuardGuard]},
+  { path: "categories", component: CategoriesComponent, canActivate : [AuthGuardGuard] },
+  { path: "schedule", component: ScheduleComponent , canActivate : [AuthGuardGuard]},
+  { path: "edit-page/:id/:source", component: EditPageComponent ,canActivate : [AuthGuardGuard]},
+  { path: "QRScanner", component: QRScannerComponent ,canActivate : [AuthGuardGuard]},
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
 ];
 
 @NgModule({

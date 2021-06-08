@@ -1,4 +1,21 @@
-mat-card{
+/* mat-card{
     justify-content: center;
     display: flex;
+} */
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100vh;
 }
+
+.app-header {
+  height: 10vh;
+  justify-content: space-between;
+}
+
+.positronx {
+  text-decoration: none;
+  color: #ffffff;
+}
+

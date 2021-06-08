@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 100vh; width: 100vh">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input #username matInput placeholder="Username" required/>
+        </mat-form-field>
+        <p>
+          <mat-form-field class="example-full-width">
+            <input #password matInput placeholder="Password" required/>
+          </mat-form-field></p
+      ></mat-card-content>
+
+      <button mat-stroked-button color="accent" class="btn-block" (click)='submit(username.value, password.value)'>
+        Log in
+      </button>
+    </form>
+  </mat-card>
+</div>

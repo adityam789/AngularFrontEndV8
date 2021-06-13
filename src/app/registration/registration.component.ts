@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
+import { LoginService } from '../Services/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,8 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit(firstname: any, lastname: any, username: any, email: any, password: any, role: any){
     let cred = {firstname, lastname, username, email, password, role}
-    this.api.register(cred).subscribe(elem => this.message = elem)
+    console.log(cred)
+    this.api.register(cred)
     this.router.navigate(['login'])
   }
 

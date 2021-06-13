@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { OperationResponse } from './qrscanner/CommunicationModels/response.model'
-import { Appointment } from './qrscanner/CommunicationModels/appointment.model';
-import { environment } from '../environments/environment';
+import { OperationResponse } from '../qrscanner/CommunicationModels/response.model'
+import { Appointment } from '../qrscanner/CommunicationModels/appointment.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

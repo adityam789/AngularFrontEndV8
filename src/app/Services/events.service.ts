@@ -17,11 +17,13 @@ export class EventsService {
   constructor(private http: HttpClient) { }
 
   getEventsAll(){
+    console.log("All")
     const URL = "http://localhost:8090/events"
     return this.http.get<any>(URL);
   }
 
   getEvents(pageNum: number) {
+    console.log("hmm")
     // now returns an Observable of Config
     const URL = "http://localhost:8090/events";
     let r = this.http.get<EventTypes[]>(URL, {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from '../categories.service';
+import { CategoriesService } from '../Services/categories.service';
 import { Observable, Observer } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { PageEvent } from '@angular/material/paginator';

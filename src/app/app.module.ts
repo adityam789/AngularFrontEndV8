@@ -1,10 +1,12 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardGuard } from './auth-guard.guard';
 import { JwtModule } from "@auth0/angular-jwt";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginGuard } from './login.guard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +29,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { MatSelectModule } from '@angular/material/select';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpInterceptorService } from './Services/http-interceptor.service';
 
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkTreeModule } from '@angular/cdk/tree';
@@ -55,6 +59,11 @@ import { QRScannerComponent } from './qrscanner/qrscanner.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ChatroomComponent } from './chatroom/chatroom.component';
+
+const config: SocketIoConfig = { url: 'http://localhost:8090', options: {} }
+
 let extraImports = [
   OverlayModule, 
   CdkTreeModule,
@@ -79,6 +88,8 @@ let extraImports = [
 ]
 
 export function tokenGetter() {
+  console.log("hmm")
+  console.log(localStorage.getItem("Authorization"))
   return localStorage.getItem("Authorization");
 }
 
@@ -93,7 +104,8 @@ export function tokenGetter() {
     EditPageComponent,
     QRScannerComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ChatroomComponent
   ],
   imports: [
     BrowserModule,
@@ -117,18 +129,25 @@ export function tokenGetter() {
     ZXingScannerModule,
     MatSelectModule,
     FlexLayoutModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        throwNoTokenError: true,
-        skipWhenExpired: true,
-        // whitelistedDomains: ["example.com"],
-        // blacklistedRoutes: ["http://example.com/examplebadroute/"],
-      },
-    }),
+    NgbModule,
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter: () => {
+    //       console.log("hit")
+    //       return "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1hcnkgSGFtIiwiaWF0IjoxNTE2MjM5MDIyfQ.s3fC7DY5TeJb8OVluGojXNS5YhclsydmnQxd1UosU2ynA7EWQvgqUTFM6MOi2gTrIqtMAh16Rkm0OQilfL1ROpSKGstm2gxb1ZjQEKbVJ17NLU6Uxh56zpNGhvLVunCRH0PC8TqWWUZXKZ1B4SF_cQU-K--z2biPoynsA9pzgiHLEcnNjnG4ymqGJ_xIAMn80R1QCfGw_1FmIHCytTs8bV5YOnkkaqHgvaUEJCg8U5O5zPIVftiafRLEmNgyo7h5C9_gWLlygneQQLNNPQZh9uPhorr_DLBqJNRVm9LbhVSqR4cd1ZlWRryGl_uzddqBAPojS1PjokZXu9hff9u25Q"
+    //     },
+    //     // throwNoTokenError: true,
+    //     // skipWhenExpired: true,
+    //     headerName: "Homer",
+    //     // whitelistedDomains: ["example.com"],
+    //     // blacklistedRoutes: ["http://example.com/examplebadroute/"],
+    //   },
+    // }), 
+    SocketIoModule.forRoot(config),
     ...extraImports
   ],
-  providers: [AuthGuardGuard],
+  providers: [AuthGuardGuard, LoginGuard, 
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

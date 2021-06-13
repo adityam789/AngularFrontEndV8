@@ -3,68 +3,90 @@
     <span>My Application</span>
   </mat-toolbar>
 </p>   -->
-
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span class="example-spacer"></span>
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <!-- <button
+<div *ngIf="val; else elseBlock">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span class="example-spacer"></span>
+      <span>My App</span>
+      <span class="example-spacer"></span>
+      <!-- <button
           mat-icon-button
           class="example-icon favorite-icon"
           aria-label="Example icon-button with heart icon"
         >
           <mat-icon>favorite</mat-icon>
         </button> -->
-  </mat-toolbar-row>
-  <mat-toolbar-row>
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with menu icon"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span class="example-spacer"></span>
-    <div class="example-button-row">
-      <button mat-raised-button color="warn" routerLink="/home" target="_self">
-        Home
-      </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
       <button
-        mat-raised-button
-        color="warn"
-        routerLink="/events"
-        target="_self"
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
       >
-        Events
+        <mat-icon>menu</mat-icon>
       </button>
+      <span class="example-spacer"></span>
+      <div class="example-button-row">
+        <button
+          mat-raised-button
+          color="warn"
+          routerLink="/home"
+          target="_self"
+        >
+          Home
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          routerLink="/events"
+          target="_self"
+        >
+          Events
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          routerLink="/categories"
+          target="_self"
+        >
+          Categories
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          routerLink="/QRScanner"
+          target="_self"
+        >
+          QR Scanner
+        </button>
+        <a mat-raised-button routerLink="/schedule" target="_self" color="warn"
+          >Schedule</a
+        >
+      </div>
+      <span class="example-spacer"></span>
       <button
-        mat-raised-button
-        color="warn"
-        routerLink="/categories"
-        target="_self"
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with share icon"
       >
-        Categories
+        <mat-icon>share</mat-icon>
       </button>
-      <button
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+<ng-template #elseBlock>
+  <!-- Toolbar -->
+  <mat-toolbar color="primary" class="app-header">
+    <div><a href="/" target="_self" class="positronx">PositronX.io</a></div>
+    <span class="nav-tool-items">
+      <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+      <a
+        mat-button
         mat-raised-button
-        color="warn"
-        routerLink="/QRScanner"
-        target="_self"
+        routerLink="register"
+        routerLinkActive="active"
+        >Register</a
       >
-        QR Scanner
-      </button>
-      <a mat-raised-button routerLink="/schedule" target="_self" color="warn"
-        >Schedule</a
-      >
-    </div>
-    <span class="example-spacer"></span>
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with share icon"
-    >
-      <mat-icon>share</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+    </span>
+  </mat-toolbar>
+</ng-template>

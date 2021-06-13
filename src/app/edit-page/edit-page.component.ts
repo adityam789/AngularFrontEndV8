@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { EventsService } from '../events.service';
-import { CategoriesService } from '../categories.service';
+import { EventsService } from '../Services/events.service';
+import { CategoriesService } from '../Services/categories.service';
 import { Router } from '@angular/router';
 
 export interface EventTypes {

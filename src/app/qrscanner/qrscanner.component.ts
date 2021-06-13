@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OperationResponse } from '../qrscanner/CommunicationModels/response.model'
 import { Appointment } from '../qrscanner/CommunicationModels/appointment.model';
-import { LogService } from '../qrscanner.service';
+import { LogService } from '../Services/qrscanner.service';
 
 interface Transport {
   plates: string;

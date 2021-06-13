@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
+import { LoginService } from '../Services/login.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private api: LoginService, private router: Router) { }
+  constructor(private api: LoginService, private router: Router, private UserError: MatSnackBar) { }
 
   ngOnInit() {
     
@@ -17,16 +18,18 @@ export class LoginComponent implements OnInit {
 
   submit(username: string, password: string){
     let cred = {username, password}
-    let v: any;
-    let ans = this.api.verify(cred).subscribe(elem => v = ans)
-    console.log(v)
-    if(!v.verified){
-      // TODO: Add the error message and refresh
-    }
-    else{
-      localStorage.setItem('Authorization',v.token)
-      this.router.navigate(['home'])
-    }
+    this.api.verify(cred).subscribe(elem => {
+      if(!elem.verified){
+        // TODO: Add the error message and refresh
+        this.UserError.open("EHHHHHHHHHHHHH","close")
+      }
+      else{
+        localStorage.setItem('Authorization', elem.token)
+        this.router.navigate(['home']).then((v) => {
+          window.location.reload();
+        })
+      }
+    })
   }
 
-}
+} 
